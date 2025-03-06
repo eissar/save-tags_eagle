@@ -1,0 +1,19 @@
+{
+    "id": "b7d46f6a-8524-4c9f-9dfc-c1290623c42d",
+    "version": "1.0.0",
+    "platform": "all",
+    "arch": "all",
+    "name": "save-tags",
+    "logo": "/logo.png",
+    "keywords": [],
+    "devTools": true,
+    "preview": {
+        "mp4,webm,webp,png,jpg,jpeg,gif,url,svg,html": {
+            "inspector": {
+                "path": "index.html",
+                "height": 100,
+                "multiSelect": true
+            }
+        }
+    }
+}
