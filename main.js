@@ -52,7 +52,7 @@ async function SaveTags(format) {
     /** @param {string[]} tags */
     function format_tags(tags) {
         if (format === 'csv') {
-            return tags.join(',');
+            return tags.join(', ');
         } else if (format === 'txt') {
             return tags.join('\n');
         }
@@ -78,7 +78,8 @@ async function SaveTags(format) {
             console.warn(`no tags on item; skipping...`, item);
             return;
         }
-        const save_filename = item.name + '.tags.' + format;
+        //const save_filename = item.name + '.tags.' + format;
+        const save_filename = item.name + '.txt';
         const pth = path.join(saveDir, save_filename);
         // const tags = item.tags.join('\n');
         saveDataToFile(pth, format_tags(item.tags));
