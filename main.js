@@ -48,7 +48,15 @@ async function showDirectoryPickerDialog() {
         return null; // Return null on error
     }
 }
-async function SaveTags() {
+async function SaveTags(format) {
+    /** @param {string[]} tags */
+    function format_tags(tags) {
+        if (format === 'csv') {
+            return tags.join(',');
+        } else if (format === 'txt') {
+            return tags.join('\n');
+        }
+    }
     const selectedItems = await eagle.item.getSelected();
     const itemsLen = selectedItems.length;
     if (itemsLen === 0) {
@@ -70,15 +78,17 @@ async function SaveTags() {
             console.warn(`no tags on item; skipping...`, item);
             return;
         }
-        const save_filename = item.name + '.tags.txt';
+        const save_filename = item.name + '.tags.' + format;
         const pth = path.join(saveDir, save_filename);
-        const tags = item.tags.join('\n');
-        saveDataToFile(pth, tags);
+        // const tags = item.tags.join('\n');
+        saveDataToFile(pth, format_tags(item.tags));
     });
 }
 eagle.onPluginCreate(async () => {
     await setTheme();
     (() => {
-        createButtonWithCallback('save tags', SaveTags);
+        createButtonWithCallback('save tags', SaveTags, {
+            parameters: ['csv'],
+        });
     })();
 });
